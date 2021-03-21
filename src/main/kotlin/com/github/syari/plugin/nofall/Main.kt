@@ -1,4 +1,4 @@
-package sample // TODO 固有のパッケージ名を設定する
+package com.github.syari.plugin.nofall
 
 import org.bukkit.plugin.java.JavaPlugin
 
