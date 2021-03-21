@@ -1,6 +1,7 @@
 package com.github.syari.plugin.nofall
 
 import com.github.syari.plugin.nofall.Main.Companion.plugin
+import com.github.syari.spigot.api.config.CustomConfig
 import com.github.syari.spigot.api.config.config
 import com.github.syari.spigot.api.config.type.ConfigDataType
 import org.bukkit.command.CommandSender
@@ -9,8 +10,18 @@ object ConfigLoader {
     var isEnable = false
 
     fun load(sender: CommandSender) {
-        plugin.config(sender, "config.yml") {
+        config(sender) {
             isEnable = get("enable", ConfigDataType.Boolean, default = false)
         }
+    }
+
+    fun save() {
+        config(null) {
+            set("enable", ConfigDataType.Boolean, isEnable, save = true)
+        }
+    }
+
+    private fun config(sender: CommandSender?, action: CustomConfig.() -> Unit) {
+        plugin.config(sender, "config.yml", action = action)
     }
 }
